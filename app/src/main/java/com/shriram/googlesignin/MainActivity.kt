@@ -1,4 +1,3 @@
-// MainActivity.kt
 package com.shriram.googlesignin
 
 import android.os.Bundle
@@ -28,13 +27,16 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
+        // Initialize GoogleAuthClient
         val googleAuthClient = GoogleAuthClient(this)
 
         setContent {
+            // State to track sign-in status
             var isSignIn by rememberSaveable {
                 mutableStateOf(googleAuthClient.isSingedIn())
             }
 
+            // UI layout
             Box(
                 modifier = Modifier
                     .fillMaxSize()
@@ -42,7 +44,7 @@ class MainActivity : ComponentActivity() {
                 contentAlignment = Alignment.Center
             ) {
                 if (isSignIn) {
-
+                    // Sign Out button
                     OutlinedButton(onClick = {
                         lifecycleScope.launch {
                             googleAuthClient.signOut()
@@ -57,9 +59,8 @@ class MainActivity : ComponentActivity() {
                             )
                         )
                     }
-
                 } else {
-
+                    // Sign In button
                     OutlinedButton(onClick = {
                         lifecycleScope.launch {
                             isSignIn = googleAuthClient.signIn()
@@ -73,12 +74,11 @@ class MainActivity : ComponentActivity() {
                             )
                         )
                     }
-
                 }
             }
 
+
         }
+
     }
 }
-
-

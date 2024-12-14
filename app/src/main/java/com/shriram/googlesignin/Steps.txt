@@ -1,0 +1,25 @@
+
+FOLLOW THESE STEPS TO IMPLEMENT GOOGLE SIGN-IN IN ANDROID APP:
+
+1. Add necessary permissions in `AndroidManifest.xml`:
+    - INTERNET
+    - GET_ACCOUNTS
+    - USE_CREDENTIALS
+
+2. Add metadata for Google Play Services in `AndroidManifest.xml`.
+
+3. Initialize `GoogleAuthClient` in `MainActivity.kt`.
+
+4. Implement sign-in and sign-out logic in `GoogleAuthClient.kt`.
+
+5. Update UI in `MainActivity.kt` to handle sign-in and sign-out actions.
+
+6. Add required dependencies in `app/build.gradle.kts`:
+    - Firebase Auth
+    - Google Play Services Auth
+    - AndroidX Credentials
+    - Compose UI and Material3
+
+7. Ensure `google-services.json` is added to the project for Firebase configuration.
+
+8. Build and run the project to test Google Sign-In functionality.

@@ -1,7 +1,4 @@
-// GoogleAuthClient.kt
 package com.shriram.googlesignin
-
-
 
 import android.content.Context
 import androidx.credentials.ClearCredentialStateRequest
@@ -23,18 +20,20 @@ class GoogleAuthClient(
 
     private val tag = "GoogleAuthClient: "
 
+    // Initialize CredentialManager and FirebaseAuth instances
     private val credentialManager = CredentialManager.create(context)
     private val firebaseAuth = FirebaseAuth.getInstance()
 
+    // Check if the user is already signed in
     fun isSingedIn(): Boolean {
         if (firebaseAuth.currentUser != null) {
             println(tag + "already signed in")
             return true
         }
-
         return false
     }
 
+    // Sign in the user using Google credentials
     suspend fun signIn(): Boolean {
         if (isSingedIn()) {
             return true
@@ -52,6 +51,7 @@ class GoogleAuthClient(
         }
     }
 
+    // Handle the sign-in process with the obtained credentials
     private suspend fun handleSingIn(result: GetCredentialResponse): Boolean {
         val credential = result.credential
 
@@ -61,7 +61,6 @@ class GoogleAuthClient(
         ) {
 
             try {
-
                 val tokenCredential = GoogleIdTokenCredential.createFrom(credential.data)
 
                 println(tag + "name: ${tokenCredential.displayName}")
@@ -84,9 +83,9 @@ class GoogleAuthClient(
             println(tag + "credential is not GoogleIdTokenCredential")
             return false
         }
-
     }
 
+    // Build the credential request for Google Sign-In
     private suspend fun buildCredentialRequest(): GetCredentialResponse {
         val request = GetCredentialRequest.Builder()
             .addCredentialOption(
@@ -105,11 +104,11 @@ class GoogleAuthClient(
         )
     }
 
+    // Sign out the user and clear the credential state
     suspend fun signOut() {
         credentialManager.clearCredentialState(
             ClearCredentialStateRequest()
         )
         firebaseAuth.signOut()
     }
-
 }
